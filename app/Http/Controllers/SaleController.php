@@ -35,7 +35,7 @@ class SaleController extends Controller
                 'quantity' => 'nullable|array',
                 'discount' => 'nullable|array',
                 'total_amount' => 'nullable',
-                'sale_date' => 'required',
+                'sale_date' => 'required|after_or_equal:today',
             ];
 
             $messages = [];
@@ -98,14 +98,21 @@ class SaleController extends Controller
 
     public function destroy(Sale $sale)
     {
-        //
+        return response()->json(array('success' => true));
+
+        if ($sale) {
+            $sale->products()->detach();
+
+            $sale->delete();
+        }
+
+        session(['success_message' => 'Sale has been deleted successfully!!!']);
+
+        return response()->json(array('response_type' => 1));
     }
 
     public function fetchSolutions(Request $request)
     {
-        // dd("i am here");
-        // Debugging line to check if the method is being called
-        // Remove this line in production
         $solutionIds = $request->input('solution_ids', []);
 
         $solutions = Product::whereIn('id', $solutionIds)->get();

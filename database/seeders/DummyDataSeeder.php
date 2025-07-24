@@ -14,7 +14,7 @@ class DummyDataSeeder extends Seeder
      */
     public function run(): void
     {
-        Customer::factory(10)->create();
-        Product::factory(50)->create();
+        Customer::factory(5)->create();
+        Product::factory(10)->create();
     }
 }

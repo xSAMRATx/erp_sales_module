@@ -112,7 +112,7 @@
         const selectedSolutions = Array.from(productSelect.selectedOptions).map(option => option.value);
 
         const salesPriceInput = document.getElementById('total_amount');
-        const discountPercentageInput = document.getElementById('discount_percentage');
+        // const discountPercentageInput = document.getElementById('discount_percentage');
         const finalPriceInput = document.getElementById('total_amount');
 
         if (selectedSolutions.length > 0) {
@@ -225,7 +225,9 @@
 
         function calculateFinalPrice() {
             const salesPrice = parseFloat(salesPriceInput.value) || 0;
-            const discountPercentage = parseFloat(discountPercentageInput.value) || 0;
+            // const discountPercentage = parseFloat(discountPercentageInput.value) || 0;
+
+            const discountPercentage = 0;
 
             const discountAmount = (salesPrice * discountPercentage) / 100;
             const finalPrice = salesPrice - discountAmount;
@@ -233,6 +235,6 @@
             finalPriceInput.value = finalPrice.toFixed(2);
         }
 
-        discountPercentageInput.addEventListener('input', calculateFinalPrice);
+        // discountPercentageInput.addEventListener('input', calculateFinalPrice);
     });
 </script>
