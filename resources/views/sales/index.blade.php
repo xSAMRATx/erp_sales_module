@@ -49,11 +49,11 @@
                                             </td>
 
                                             <td class="px-6 py-4 text-center">
-                                                <button type="button" class="text-red-500 hover:text-gray-700"
+                                                {{-- <button type="button" class="text-red-500 hover:text-gray-700"
                                                     onclick="simpleResourceDelete({{ $sale->id }}, '{{ route('sales.destroy', $sale->id) }}')"
                                                     title="Delete">
                                                     <i class="fa-solid fa-trash-can text-lg"></i>
-                                                </button>
+                                                </button> --}}
 
 
                                                 <a href="{{ route('sales.show', $sale->id) }}"
@@ -75,8 +75,10 @@
                                                     </button>
                                                 </form> --}}
 
-                                                <button class="btn-delete"
-                                                    data-id="{{ $sale->id }}">Delete</button>
+                                                <button class="btn-delete text-red-500 hover:text-gray-700"
+                                                    data-id="{{ $sale->id }}">
+                                                    <i class="fa-solid fa-trash-can text-lg"></i>
+                                                </button>
                                             </td>
 
                                             {{-- <td class="px-6 py-4 text-center">
@@ -122,7 +124,7 @@
             const id = button.dataset.id;
 
             const result = await Swal.fire({
-                title: 'Are you sure?',
+                title: 'Are you sure, you want to delete this record?',
                 text: "This action cannot be undone!",
                 icon: 'warning',
                 showCancelButton: true,

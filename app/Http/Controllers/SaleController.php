@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Customer;
 use App\Models\SaleProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class SaleController extends Controller
@@ -86,14 +87,19 @@ class SaleController extends Controller
         //
     }
 
-    public function edit(Sale $sale)
+    public function edit($id)
     {
-        //
+        $sale = Sale::with('customer', 'products')->find($id);
+
+        // dd($sale);
+        $customers = Customer::pluck('name', 'id')->toArray();
+        $products = Product::pluck('name', 'id')->toArray();
+        return view('sales.edit', compact('customers', 'products', 'sale'));
     }
 
     public function update(Request $request, Sale $sale)
     {
-        //
+        dd($request->all());
     }
 
     public function destroy(Sale $sale)
@@ -113,10 +119,34 @@ class SaleController extends Controller
 
     public function fetchSolutions(Request $request)
     {
+        dd($request->all());
+
         $solutionIds = $request->input('solution_ids', []);
 
-        $solutions = Product::whereIn('id', $solutionIds)->get();
+        $solutions = SaleProduct::whereIn('id', $solutionIds)->get();
 
         return response()->json($solutions);
+    }
+
+    public function fetchSaleProducts(Request $request, $id)
+    {
+        $productIds = $request->input('productIds', []);
+
+        $products = DB::table('products')
+            ->leftJoin('sale_product', function ($join) use ($id) {
+                $join->on('products.id', '=', 'sale_product.product_id')
+                    ->where('sale_product.sale_id', '=', $id);
+            })
+            ->whereIn('products.id', $productIds)
+            ->select(
+                'products.id',
+                'products.name',
+                'products.price',
+                'sale_product.quantity',
+                'sale_product.discount_percentage'
+            )
+            ->get();
+
+        return response()->json($products);
     }
 }

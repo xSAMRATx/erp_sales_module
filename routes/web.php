@@ -18,8 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::resource('sales', SaleController::class);
 
 Route::get('/fetch/solutions', [SaleController::class, 'fetchSolutions'])->name('fetch.solutions');
+
+// fetch sale products in edit page
+Route::get('/fetch/sale/{id}/products', [SaleController::class, 'fetchSaleProducts'])->name('fetch.sale.products');
