@@ -56,4 +56,4 @@ Open http://localhost:8000. The seeder creates an admin user (see `database/seed
 
 ## Author
 
-**Md. Abdul Aziz Samrat** — [GitHub](https://github.com/xSAMRATx) · [LinkedIn](https://www.linkedin.com/in/md-abdul-aziz-samrat-797738206/)
+**Md. Abdul Aziz Samrat** — [GitHub](https://github.com/xSAMRATx) · [LinkedIn](https://www.linkedin.com/in/aziz-samrat)
